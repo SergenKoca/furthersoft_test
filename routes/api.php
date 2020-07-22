@@ -28,12 +28,13 @@ Route::prefix('auth')->group(function(){
 
 Route::prefix('account')->middleware('auth:api')->group(function (){
     Route::post('/create','API\AccountController@createAccount')->name('api_acount_create');
-    Route::post('/show','API\AccountController@showAccount')->name('api_acount_show');
-    Route::post('/get/{id}','API\AccountController@getAccount')->name('api_acount_get');
+    Route::get('/show','API\AccountController@showAccount')->name('api_acount_show');
+    Route::get('/get/{id}','API\AccountController@getAccount')->name('api_acount_get');
     Route::post('/delete/{id}','API\AccountController@deleteAccount')->name('api_acount_delete');
     Route::post('/active/{id}','API\AccountController@activeAccount')->name('api_acount_active');
     Route::post('/passive/{id}','API\AccountController@passiveAccount')->name('api_acount_passive');
     Route::post('/deposit/{id}','API\AccountController@depositAccount')->name('api_acount_deposit');
     Route::post('/withdraw/{id}','API\AccountController@withdrawAccount')->name('api_acount_withdraw');
+    Route::get('/balance/{id}','API\AccountController@balanceAccount')->name('api_acount_balance');
 });
 
