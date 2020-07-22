@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function login(Request $request){
   		if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
             $user = Auth::user();
-            $tokenResult =  $user->createToken('accessToken');
+            $tokenResult =  $user->createToken('auth access token');
             return response()->json([
             	'message' => 'login successful',
             	'tokenResult' => $tokenResult,
@@ -46,8 +46,13 @@ class AuthController extends Controller
 	            'error' => true,
         	], 400);
     	}
+    }
 
-
-
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'successfully logged out'
+        ]);
     }
 }
