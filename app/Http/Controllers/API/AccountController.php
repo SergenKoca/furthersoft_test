@@ -74,6 +74,13 @@ class AccountController extends Controller
     }
 
     public function depositAccount($id,Request $request){
+        if($request->quantity <=0 ){
+            return response()->json([
+               'error' => true,
+               'message' => 'sıfırdan büyük bir miktar girin'
+            ]);
+        }
+
         $account = Account::find($id);
         if($account->balance < 0){
             $total= $request->quantity-(($request->quantity*2)/100);
@@ -97,6 +104,13 @@ class AccountController extends Controller
     }
 
     public function withdrawAccount($id,Request $request){
+        if($request->quantity <=0 ){
+            return response()->json([
+                'error' => true,
+                'message' => 'sıfırdan büyük bir miktar girin'
+            ]);
+        }
+
         $account = Account::find($id);
         if($account->balance <= -500){
             return response()->json([
